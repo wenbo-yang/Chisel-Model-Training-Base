@@ -1,0 +1,2 @@
+echo kill server
+pkill -f main_character_trainer

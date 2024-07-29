@@ -1,0 +1,32 @@
+{
+    "serviceName": "character-trainer",
+    "shortName": "c-char-train",
+    "storage": [
+        {
+            "env": "development",
+            "url": "./dev/localStorage"
+        },
+        {
+            "env": "local",
+            "url": "./local/localStorage"
+        },
+        {
+            "env": "production",
+            "url": "not implemented"
+        }
+    ],
+    "serviceAddress": [
+        {
+            "env": "development",
+            "url": "127.0.0.1"
+        },
+        {
+            "env": "local",
+            "url": "127.0.0.1"
+        },
+        {
+            "env": "production",
+            "url": "0.0.0.0"
+        }
+    ]
+}
