@@ -1,2 +1,8 @@
+import json
+import sys
+sys.path.append("./")
 
-def test_writing_files():
+from src.types.trainer_types import ModelTrainingExecution
+
+def test_test_test():
+    return
