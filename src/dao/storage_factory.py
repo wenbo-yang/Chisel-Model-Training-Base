@@ -1,7 +1,7 @@
 from dao.model_document_db_storage_dao import ModelDocumentDBStorageDao
 from dao.model_local_storage_dao import ModelLocalStorageDao
-from dao.model_training_data_document_db_storage_dao import ModelTrainingDataDocumentDBStorageDao
-from dao.model_training_data_local_storage_dao import ModelTrainingDataLocalStoragetDao
+from dao.training_data_document_db_storage_dao import TrainingDataDocumentDBStorageDao
+from dao.training_data_local_storage_dao import TrainingDataLocalStoragetDao
 
 class StorageFactory:
     @staticmethod
@@ -11,7 +11,7 @@ class StorageFactory:
         return ModelLocalStorageDao(config)
 
     @staticmethod
-    def make_model_training_data_storage(config):
+    def make_training_data_storage(config):
         if config.env == "production":
-            return ModelTrainingDataDocumentDBStorageDao(config)
-        return ModelTrainingDataLocalStoragetDao(config)
+            return TrainingDataDocumentDBStorageDao(config)
+        return TrainingDataLocalStoragetDao(config)

@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-class ModelTrainingDataStorageDao(ABC):
+class TrainingDataStorageDao(ABC):
     @abstractmethod
     async def get_current_training_data(self, character): 
         pass
@@ -18,5 +18,5 @@ class ModelTrainingDataStorageDao(ABC):
         pass
 
     @abstractmethod
-    async def delete_selected_model_training_data(self, character = None):
+    async def delete_selected_training_data(self, character = None):
         pass

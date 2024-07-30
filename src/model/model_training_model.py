@@ -1,12 +1,12 @@
 from model.model_storage import ModelStorage
-from model.model_training_data_storage import ModelTrainingDataStorage
+from model.training_data_storage import TrainingDataStorage
 
 
 class ModelTrainingModel:
-    def __init__(self, config, model_storage, model_training_data_storage):
+    def __init__(self, config, model_storage, training_data_storage):
         self.__config = config
         self.__model_storage = model_storage or ModelStorage(config)
-        self.__model_training_data_storage = model_training_data_storage or ModelTrainingDataStorage(config)
+        self.__training_data_storage = training_data_storage or TrainingDataStorage(config)
 
     async def store_training_data(self, model, uncompressed_data, compressed_data):
         pass
