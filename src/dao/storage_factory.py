@@ -1,4 +1,4 @@
-class StorageFactory: 
+class StorageFactory:
     @staticmethod
     def make_model_storage(config):
         return
