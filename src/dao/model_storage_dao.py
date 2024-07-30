@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-class ModelStroageDao(ABC):
+class ModelStorageDao(ABC):
     @abstractmethod
     async def get_latest_model(self):
         pass

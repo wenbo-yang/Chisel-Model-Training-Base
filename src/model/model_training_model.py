@@ -4,9 +4,9 @@ from model.model_training_data_storage import ModelTrainingDataStorage
 
 class ModelTrainingModel:
     def __init__(self, config, model_storage, model_training_data_storage):
-        self.config = config
-        self.model_storage = model_storage or ModelStorage()
-        self.model_training_data_storage = model_training_data_storage or ModelTrainingDataStorage()
+        self.__config = config
+        self.__model_storage = model_storage or ModelStorage(config)
+        self.__model_training_data_storage = model_training_data_storage or ModelTrainingDataStorage(config)
 
     async def store_training_data(self, model, uncompressed_data, compressed_data):
         pass

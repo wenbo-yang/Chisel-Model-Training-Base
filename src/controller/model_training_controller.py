@@ -2,8 +2,8 @@ from model.model_training_model import ModelTrainingModel
 
 class ModelTrainingController:
     def __init__(self, config, model_training_model): 
-        self.config = config
-        self.model_training_model = model_training_model or ModelTrainingModel(config)
+        self.__config = config
+        self.__model_training_model = model_training_model or ModelTrainingModel(config)
         return
     
     async def _upload_training_data(self, training_data): 
