@@ -1,4 +1,4 @@
-from model.model_training_model import ModelTrainingModel
+from model_training_base.model.model_training_model import ModelTrainingModel
 
 class ModelTrainingController:
     def __init__(self, config, model_training_model): 
