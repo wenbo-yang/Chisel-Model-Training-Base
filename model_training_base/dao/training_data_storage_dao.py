@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 
 class TrainingDataStorageDao(ABC):
     @abstractmethod
-    def get_current_training_data(self, character): 
+    def get_training_data(self, character): 
         pass
     
     @abstractmethod

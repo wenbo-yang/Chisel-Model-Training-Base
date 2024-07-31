@@ -1,5 +1,5 @@
-from model.model_storage import ModelStorage
-from model.training_data_storage import TrainingDataStorage
+from model_training_base.model.model_storage import ModelStorage
+from model_training_base.model.training_data_storage import TrainingDataStorage
 
 
 class ModelTrainingModel:

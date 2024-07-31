@@ -1,7 +1,8 @@
 from genericpath import isfile
 import json
 import os
-from dao.model_storage_dao import ModelStorageDao
+from model_training_base.dao.model_storage_dao import ModelStorageDao
+from model_training_base.types.trainer_types import ModelTrainingExecution
 
 class ModelLocalStorageDao(ModelStorageDao):
     def __init__(self, config):
@@ -10,8 +11,7 @@ class ModelLocalStorageDao(ModelStorageDao):
         return
     
     def get_latest_model(self):
-        executions = await self.__get_executions()
-
+        executions = self.__get_executions()
         return
     
 

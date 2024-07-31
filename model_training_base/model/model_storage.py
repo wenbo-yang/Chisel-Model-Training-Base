@@ -1,4 +1,4 @@
-from dao.storage_factory import StorageFactory
+from model_training_base.dao.storage_factory import StorageFactory
 
 class ModelStorage:
     def __init__(self, config, model_storage_dao):

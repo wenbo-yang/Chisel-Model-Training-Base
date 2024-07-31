@@ -1,7 +1,7 @@
-from dao.model_document_db_storage_dao import ModelDocumentDBStorageDao
-from dao.model_local_storage_dao import ModelLocalStorageDao
-from dao.training_data_document_db_storage_dao import TrainingDataDocumentDBStorageDao
-from dao.training_data_local_storage_dao import TrainingDataLocalStorageDao
+from model_training_base.dao.model_document_db_storage_dao import ModelDocumentDBStorageDao
+from model_training_base.dao.model_local_storage_dao import ModelLocalStorageDao
+from model_training_base.dao.training_data_document_db_storage_dao import TrainingDataDocumentDBStorageDao
+from model_training_base.dao.training_data_local_storage_dao import TrainingDataLocalStorageDao
 
 class StorageFactory:
     @staticmethod
