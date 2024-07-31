@@ -18,5 +18,5 @@ class TrainingDataStorageDao(ABC):
         pass
 
     @abstractmethod
-    def delete_selected_training_data(self, character = None):
+    def delete_selected_training_data(self, character):
         pass

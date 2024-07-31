@@ -48,3 +48,31 @@ class ModelTrainingExecution:
 
     def json(self): 
         return self.__model_training_execution_json
+    
+
+class SavedTrainingData:
+    def __init_(self, saved_training_data):
+        self.__saved_training_data = saved_training_data
+        self.__data_map = dict()
+        self.__parse_data_into_map()
+
+    @property
+    def model(self):
+        return self.__saved_training_data["model"]
+
+    @property
+    def data(self):
+        return self.__data_map
+
+    def has(self, key): 
+        return key in self.__data_map
+    
+    def set(self, key, value):
+        self.__data_map[key] = value
+    
+    def __parse_data_into_map(self): 
+        data = self.__saved_training_data.data
+        for entry in data:
+            self.__data_map[entry[0]] = entry[1]
+        return
+    
