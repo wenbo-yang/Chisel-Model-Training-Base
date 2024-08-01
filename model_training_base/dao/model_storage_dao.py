@@ -2,15 +2,15 @@ from abc import ABC, abstractmethod
 
 class ModelStorageDao(ABC):
     @abstractmethod
-    def get_latest_model(self):
+    def get_latest_model_training_execution(self):
         pass
 
     @abstractmethod
-    def get_latest_model_by_status(self, status): 
+    def get_latest_model_training_execution_by_status(self, status): 
         pass
 
     @abstractmethod
-    def createTrainingSession(self): 
+    def create_training_session(self): 
         pass
     
     @abstractmethod
