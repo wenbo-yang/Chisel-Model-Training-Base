@@ -57,11 +57,14 @@ class SavedTrainingData:
 
     @property
     def model(self):
-        return self.__saved_training_data["model"]
+        return self.__saved_training_data["model"] if "model" in self.__saved_training_data else ""
 
     @property
     def data(self):
         return self.__data_map
+    
+    def size(self):
+        return len(self.__data_map)
 
     def has(self, key): 
         return key in self.__data_map
@@ -70,9 +73,8 @@ class SavedTrainingData:
         self.__data_map[key] = value
     
     def __parse_data_into_map(self): 
-        dataRows = self.__saved_training_data["data"]
-        for entry in dataRows:
-            self.__data_map[entry[0]] = entry[1]
-        return
+        if "data" in self.__saved_training_data:
+            self.__data_map = self.__saved_training_data["data"]
+
     
     

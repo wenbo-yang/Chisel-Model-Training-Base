@@ -1,4 +1,3 @@
-import json
 import sys
 sys.path.append("./")
 sys.path.append("./model_training_base")

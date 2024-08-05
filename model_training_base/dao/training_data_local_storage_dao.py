@@ -15,13 +15,13 @@ class TrainingDataLocalStorageDao(TrainingDataStorageDao):
         uuid = uuid5(self.__config.model_uuid, character)
         file_path = self.__folder_path + "/" + str(uuid) + ".json"
 
-        if not os.path.exists(file_path):
-            return {}
+        saved_training_data = {}
 
-        f = open(file_path)
-        saved_training_data = json.load(f)
-        f.close()
-        
+        if os.path.exists(file_path):   
+            f = open(file_path)
+            saved_training_data = json.load(f)
+            f.close()
+
         return SavedTrainingData(saved_training_data)
     
     def save_data(self, character, new_data):

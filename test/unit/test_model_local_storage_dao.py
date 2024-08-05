@@ -1,9 +1,10 @@
-import json
-import os
 import sys
-import pytest
 sys.path.append("./")
 sys.path.append("./model_training_base")
+
+import pytest
+import json
+import os
 
 from model_training_base.dao.model_local_storage_dao import ModelLocalStorageDao
 from model_training_base.types.config import ModelTrainingBaseConfig
@@ -19,7 +20,8 @@ class FakeTorch:
         f.close()
 
 @pytest.fixture(autouse=True)
-def run_around_tests():
+def run_after_tests():
+    yield
     model_local_storage_dao = ModelLocalStorageDao(config)
     model_local_storage_dao.delete_all_training_executions()
 
