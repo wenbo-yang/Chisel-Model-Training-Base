@@ -1,6 +1,6 @@
 from enum import Enum
 
-class TRAININGSTATUS(Enum):
+class TRAININGSTATUS(str, Enum):
     CREATED = 'CREATED'
     INPROGRESS = 'INPROGRESS'
     FINISHED = 'FINISHED'

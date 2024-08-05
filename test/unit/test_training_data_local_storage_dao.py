@@ -11,13 +11,12 @@ config = ModelTrainingBaseConfig()
 config.model_uuid = uuid4()
 config.storage_url = "./dev/localStorage"
 
-
 @pytest.fixture(autouse=True)
 def run_around_tests():
     training_data_local_storage_dao = TrainingDataLocalStorageDao(config)
     training_data_local_storage_dao.delete_all_training_data()
 
-def test_created_training_data_local_storage_dao_should_return_no_training_data():    
+def test_create_training_data_local_storage_dao_should_return_no_training_data():    
     training_data_local_storage_dao = TrainingDataLocalStorageDao(config)
     all_training_data = training_data_local_storage_dao.get_all_training_data()
     assert all_training_data == []
