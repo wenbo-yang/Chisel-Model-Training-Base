@@ -3,7 +3,7 @@ from model_training_base.model.training_data_storage import TrainingDataStorage
 
 
 class ModelTrainingModel:
-    def __init__(self, config, model_storage, training_data_storage):
+    def __init__(self, config, model_storage = None, training_data_storage = None):
         self.__config = config
         self.__model_storage = model_storage or ModelStorage(config)
         self.__training_data_storage = training_data_storage or TrainingDataStorage(config)

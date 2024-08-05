@@ -1,7 +1,7 @@
 from model_training_base.model.model_training_model import ModelTrainingModel
 
 class ModelTrainingController:
-    def __init__(self, config, model_training_model): 
+    def __init__(self, config, model_training_model = None): 
         self.__config = config
         self.__model_training_model = model_training_model or ModelTrainingModel(config)
         return
