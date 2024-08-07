@@ -11,8 +11,8 @@ class TrainingDataLocalStorageDao(TrainingDataStorageDao):
         self.__folder_path = self.__config.storage_url + "/data"
         return
     
-    def get_training_data(self, character): 
-        uuid = uuid5(self.__config.model_uuid, character)
+    def get_training_data(self, model_key): 
+        uuid = uuid5(self.__config.model_uuid, model_key)
         file_path = self.__folder_path + "/" + str(uuid) + ".json"
 
         saved_training_data = {}
@@ -24,13 +24,13 @@ class TrainingDataLocalStorageDao(TrainingDataStorageDao):
 
         return SavedTrainingData(saved_training_data)
     
-    def save_data(self, character, new_data):
-        uuid = uuid5(self.__config.model_uuid, character)
+    def save_data(self, model_key, new_data):
+        uuid = uuid5(self.__config.model_uuid, model_key)
         file_path = self.__folder_path + "/" + str(uuid) + ".json"
         os.makedirs(self.__folder_path, exist_ok=True)
 
         saved_training_data = {}
-        saved_training_data["model"] = character
+        saved_training_data["modelKey"] = model_key
         saved_training_data["data"] = new_data
 
         f = open(file_path, 'w')

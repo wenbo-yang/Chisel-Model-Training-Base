@@ -51,13 +51,17 @@ class ModelTrainingExecution:
     
 class SavedTrainingData:
     def __init__(self, saved_training_data = None):
-        self.__saved_training_data = saved_training_data
+        self.__saved_training_data = saved_training_data or {}
         self.__data_map = dict()
         self.__parse_data_into_map()
 
     @property
-    def model(self):
-        return self.__saved_training_data["model"] if "model" in self.__saved_training_data else ""
+    def model_key(self):
+        return self.__saved_training_data["modelKey"] if "modelKey" in self.__saved_training_data else ""
+    
+    @model_key.setter
+    def model_key(self, model_key):
+        self.__saved_training_data["modelKey"] = model_key
 
     @property
     def data(self):
@@ -71,6 +75,10 @@ class SavedTrainingData:
     
     def set(self, key, value):
         self.__data_map[key] = value
+    
+    def json(self): 
+        self.__saved_training_data["data"] = self.__data_map
+        return self.__saved_training_data
     
     def __parse_data_into_map(self): 
         if "data" in self.__saved_training_data:

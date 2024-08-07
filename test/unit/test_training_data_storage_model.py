@@ -36,7 +36,7 @@ def test_should_be_able_to_get_saved_training_data():
     print(all_data[0].data)
     assert len(all_data) == 1
     assert len(all_data[0].data) == 1
-    assert all_data[0].model == "test"
+    assert all_data[0].model_key == "test"
     assert all_data[0].has("key1")
 
 def test_save_multiple_data_with_multiple_chars_should_be_able_to_get_saved_training_data():
@@ -49,8 +49,8 @@ def test_save_multiple_data_with_multiple_chars_should_be_able_to_get_saved_trai
     
     all_data = train_storage_model.get_all_training_data()
 
-    test1 = [x for x in all_data if x.model == "test1"]
-    test2 = [x for x in all_data if x.model == "test2"]
+    test1 = [x for x in all_data if x.model_key == "test1"]
+    test2 = [x for x in all_data if x.model_key == "test2"]
 
     assert len(all_data) == 2
     assert len(test1) == 1
