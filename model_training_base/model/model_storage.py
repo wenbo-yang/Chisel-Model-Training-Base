@@ -11,10 +11,10 @@ class ModelStorage:
         return self.__model_storage_dao.create_training_session()
     
     def start_model_training(self):
-        latest_model_session = self.__model_storage_dao.get_latest_model_training_execution()
-
-        if latest_model_session.status == TRAININGSTATUS.FINISHED:
-            return latest_model_session
+        latest_model_session = self.__model_storage_dao.get_latest_model_training_execution_by_status(TRAININGSTATUS.CREATED)
+        
+        if latest_model_session == None:
+            return self.__model_storage_dao.get_latest_model_training_execution()
         
         self.__model_storage_dao.change_training_model_status(latest_model_session.execution_id, TRAININGSTATUS.INPROGRESS)
         return self.__model_storage_dao.get_model_training_execution(latest_model_session.execution_id)

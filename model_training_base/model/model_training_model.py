@@ -9,12 +9,12 @@ class ModelTrainingModel:
         self.__config = config
         self.__model_storage = model_storage or ModelStorage(self.__config)
         self.__training_data_storage = training_data_storage or TrainingDataStorage(self.__config)
-        self.__neural_net_trainer = neural_net_trainer or NeuralNetTrainer()
+        self.__neural_net_trainer = neural_net_trainer or NeuralNetTrainer(self.__config)
 
     def store_training_data(self, model_key, compressed_data):
         data = {}
         for cd in compressed_data:
-            key = str(uuid5(self.__config.model_uuid, cd))
+            key = str(uuid5(self.__config.model_uuid, str(cd)))
             data[key] = cd
     
         new_data_saved = self.__training_data_storage.save_data(model_key, data)
@@ -37,7 +37,6 @@ class ModelTrainingModel:
 
         self.__model_storage.save_model(execution_id, model_to_be_saved)
         
-
     def get_model_training_execution(self, execution_id):
         return self.__model_storage.get_model_training_execution(execution_id)
 

@@ -48,8 +48,6 @@ class ModelLocalStorageDao(ModelStorageDao):
             execution.updated = int(time())
             execution.status = TRAININGSTATUS.CREATED
 
-        print(execution.updated)
-
         file_path = self.__folder_path + "/" + str(execution.execution_id) + ".json"
         f = open(file_path, 'w')
         f.write(json.dumps(execution.json()))
@@ -73,6 +71,7 @@ class ModelLocalStorageDao(ModelStorageDao):
     def change_training_model_status(self, execution_id, status):
         execution = self.get_model_training_execution(execution_id)
         execution.status = status
+        execution.updated = int(time())
         file_path = self.__folder_path + "/" + str(execution_id) + ".json"
         f = open(file_path, "w")
         f.write(json.dumps(execution.json()))
@@ -80,7 +79,6 @@ class ModelLocalStorageDao(ModelStorageDao):
 
     def delete_all_training_executions(self):
         shutil.rmtree(self.__folder_path, ignore_errors=True)
-
 
     # revisit after piping through model training
     def save_model(self, execution_id, model_to_be_saved):

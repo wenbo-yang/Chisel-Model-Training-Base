@@ -33,7 +33,7 @@ def test_should_be_able_to_get_saved_training_data():
     train_storage_model.save_data("test", data)
     
     all_data = train_storage_model.get_all_training_data()
-    print(all_data[0].data)
+
     assert len(all_data) == 1
     assert len(all_data[0].data) == 1
     assert all_data[0].model_key == "test"

@@ -1,11 +1,10 @@
 import sys
-
-
 sys.path.append("./")
 sys.path.append("./model_training_base")
 
 import pytest
 import json
+import time
 
 from uuid import uuid4
 from model_training_base.model.training_data_storage import TrainingDataStorage
@@ -109,11 +108,12 @@ def test_can_have_multiple_models():
     model_training_model.store_training_data("model_key2", ["compressed_data21", "compressed_data22"])
     execution = model_training_model.start_model_training()
     model_training_model.train_model(execution.execution_id)
-    model_path = model_training_model.get_latest_training_model()
-    
+    model_path = model_training_model.get_trained_model_by_execution_id(execution.execution_id)
+
     model_training_model.store_training_data("model_key3", ["compressed_data31", "compressed_data32"])
+    model_training_model.store_training_data("model_key4", ["compressed_data41", "compressed_data42"])
     another_execution = model_training_model.start_model_training()
     model_training_model.train_model(another_execution.execution_id)
-    another_model_path = model_training_model.get_latest_training_model()
+    another_model_path = model_training_model.get_trained_model_by_execution_id(another_execution.execution_id)
 
     assert model_path != another_model_path
