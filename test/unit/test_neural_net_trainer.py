@@ -1,4 +1,6 @@
 import sys
+
+
 sys.path.append("./")
 sys.path.append("./model_training_base")
 
@@ -15,6 +17,7 @@ from model_training_base.types.config import ModelTrainingBaseConfig
 from model_training_base.dao.training_data_local_storage_dao import TrainingDataLocalStorageDao
 from model_training_base.utils.data_loader import DataLoader
 from model_training_base.utils.data_piper import DataPiper
+from model_training_base.utils.neural_net_trainer import NeuralNetTrainer
 
 config = ModelTrainingBaseConfig()
 config.storage_url = "./dev/localStorage"
@@ -49,24 +52,33 @@ def run_after_tests():
     model_local_storage_dao.delete_all_training_executions()
     data_piper.delete_temp_images()
 
-def test_putting_data_to_temp_image_folder_data_loader_should_load_train_loader_and_test_loader():
+def test_create_neural_net_trainer_should_create_an_instance_of_that_class():
+    neural_net_trainer = NeuralNetTrainer(config)
+    assert neural_net_trainer != None
+
+def test_saving_and_then_get_all_training_data_then_feed_into_neural_net_trainer_should_load_data_to_neural_net():
     compressed_data1 = _load_and_compress_test_image1()
     compressed_data2 = _load_and_compress_test_image2()
 
     model_training_model.store_training_data("zou", [compressed_data1, compressed_data2])
     saved_training_data = training_data_local_storage_dao.get_all_training_data()
-    data_piper.unzip_data(saved_training_data)
-    image_dir = config.temp_image_path + "/" + "zou"
-    files = [f for f in listdir(image_dir) if isfile(image_dir + "/" + f)]
-    assert len(files) == 2
+    neural_net_trainer = NeuralNetTrainer(config)
+    try:
+        neural_net_trainer.load_training_data(saved_training_data)
+    except Exception:
+        assert False
 
-    data_loader = DataLoader(config)
-    data_loader.load_data()
-    assert data_loader.train_loader != None
-    assert data_loader.test_loader != None
+def test_not_having_training_data_should_raise_exception():
+    saved_training_data = training_data_local_storage_dao.get_all_training_data()
+    neural_net_trainer = NeuralNetTrainer(config)
+    exception_raised = False
+    try:
+        neural_net_trainer.load_training_data(saved_training_data)
+    except Exception:
+        exception_raised = True
 
-def test_not_putting_data_to_temp_image_folder_data_loader_should_not_return_train_loader_and_test_loader():
-    data_loader = DataLoader(config)
-    data_loader.load_data()
-    assert data_loader.train_loader == {}
-    assert data_loader.test_loader == {}
+    assert exception_raised
+
+
+    
+    
