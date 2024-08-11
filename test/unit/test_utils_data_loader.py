@@ -21,6 +21,7 @@ config.storage_url = "./dev/localStorage"
 config.env = "development"
 config.model_uuid = uuid4()
 config.temp_image_path = "./dev/tempImage"
+config.data_size = 50
 
 training_data_local_storage_dao = TrainingDataLocalStorageDao(config)
 data_piper = DataPiper(config)

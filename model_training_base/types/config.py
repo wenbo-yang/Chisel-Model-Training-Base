@@ -34,5 +34,13 @@ class ModelTrainingBaseConfig:
     def batch_size(self, batch_size): 
         self.__model_training_config_base_json["batchSize"] = batch_size
 
+    @property
+    def data_size(self): 
+        return self.__model_training_config_base_json["dataSize"] if "dataSize" in self.__model_training_config_base_json else 50
+    
+    @data_size.setter
+    def data_size(self, data_size): 
+        self.__model_training_config_base_json["dataSize"] = data_size
+
     def json(self):
         return self.__model_training_config_base_json

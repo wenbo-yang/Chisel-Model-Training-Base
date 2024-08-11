@@ -17,7 +17,7 @@ class DataLoader:
         if not os.path.exists(self.__folder_path):
             return
 
-        transform = transforms.Compose([transforms.Resize(48), transforms.Grayscale(), transforms.ToTensor()])
+        transform = transforms.Compose([transforms.Resize(self.__config.data_size), transforms.Grayscale(), transforms.ToTensor()])
         
         training_set = {}
         test_set = {}

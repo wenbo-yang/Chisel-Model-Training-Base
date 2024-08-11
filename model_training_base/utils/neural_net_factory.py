@@ -1,5 +1,5 @@
 
-from model_training_base.utils import SimpleCNN
+from model_training_base.utils.simple_conv_neural_net import SimpleCNN
 
 class NeuralNetFactory(object):
     @staticmethod 
