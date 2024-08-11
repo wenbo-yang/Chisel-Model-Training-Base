@@ -45,7 +45,6 @@ class ModelTrainingExecution:
     def model_path(self, model_path):
         self.__model_training_execution_json["modelPath"] = model_path
 
-
     def json(self): 
         return self.__model_training_execution_json
     
