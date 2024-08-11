@@ -1,3 +1,4 @@
+import os
 import sys
 sys.path.append("./")
 sys.path.append("./model_training_base")
@@ -6,8 +7,7 @@ import gzip
 import base64
 import pytest
 
-from genericpath import isfile
-from os import listdir
+from genericpath import isdir, isfile
 from uuid import uuid4
 from model_training_base.dao.model_local_storage_dao import ModelLocalStorageDao
 from model_training_base.model.model_training_model import ModelTrainingModel
@@ -27,6 +27,19 @@ training_data_local_storage_dao = TrainingDataLocalStorageDao(config)
 data_piper = DataPiper(config)
 model_training_model = ModelTrainingModel(config)
 model_local_storage_dao = ModelLocalStorageDao(config)
+
+def __load_and_compress_neural_net_training_images():
+    root_folder = "./test/unit/test_data"
+    directories = [d for d in os.listdir(root_folder) if isdir(root_folder + "/" + d)]
+    
+    for d in directories:
+        sub_dir = root_folder + "/" + d;
+        files = [f for f in os.listdir(sub_dir) if isfile(sub_dir + "/" + f)]
+        compressed_data_array = []
+        for f in files:
+            file_path = sub_dir + "/" + f
+            compressed_data_array.append(__load_and_compress_test_image(file_path))
+        model_training_model.store_training_data(d, compressed_data_array)
 
 def __load_and_compress_test_image(test_image_location):
     encoded_string = ""
@@ -77,6 +90,17 @@ def test_not_having_training_data_should_raise_exception():
 
     assert exception_raised
 
+def test_load_enough_test_to_run_simple_cnn_net_should_pass():
+    __load_and_compress_neural_net_training_images()
+    saved_training_data = training_data_local_storage_dao.get_all_training_data()
+    assert len(saved_training_data) == 3
+    assert len(saved_training_data[0].data) > 0
+    assert len(saved_training_data[1].data) > 0
+    assert len(saved_training_data[2].data) > 0 
 
-    
-    
+    try:
+        neural_net_trainer = NeuralNetTrainer(config)
+        neural_net_trainer.load_training_data(saved_training_data)
+    except Exception:
+        assert False
+
