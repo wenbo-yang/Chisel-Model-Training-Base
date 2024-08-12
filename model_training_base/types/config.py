@@ -55,8 +55,8 @@ class ModelTrainingBaseConfig:
         return self.__model_training_config_base_json["lossThreshold"] if "lossThreshold" in self.__model_training_config_base_json else 0.0001
     
     @loss_threshold.setter
-    def loss_threshold(self, loss_threshold):
-        self.__model_training_config_base_json["lossThreshold"] = loss_threshold
+    def loss_threshold(self, threshold):
+        self.__model_training_config_base_json["lossThreshold"] = threshold
     
     @property
     def enough_accuracy_epoch_count(self):
@@ -65,6 +65,14 @@ class ModelTrainingBaseConfig:
     @enough_accuracy_epoch_count.setter
     def enough_accuracy_epoch_count(self, count):
         self.__model_training_config_base_json["enoughAccuracyEpochCount"] = count
+
+    @property
+    def accuracy_threshold(self):
+        return self.__model_training_config_base_json["accuracyThreshold"] if "accuracyThreshold" in self.__model_training_config_base_json else 1.00000
+    
+    @accuracy_threshold.setter
+    def accuracy_threshold(self, threshold):
+        self.__model_training_config_base_json["accuracyThreshold"] = threshold
 
     def json(self):
         return self.__model_training_config_base_json
