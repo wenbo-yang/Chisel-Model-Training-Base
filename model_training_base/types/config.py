@@ -42,5 +42,29 @@ class ModelTrainingBaseConfig:
     def data_size(self, data_size): 
         self.__model_training_config_base_json["dataSize"] = data_size
 
+    @property
+    def use_gpu(self):
+        return self.__model_training_config_base_json["useGPU"] if "useGPU" in self.__model_training_config_base_json else False
+    
+    @use_gpu.setter
+    def use_gpu(self, use_gpu):
+        self.__model_training_config_base_json["useGPU"] = use_gpu
+
+    @property
+    def loss_threshold(self):
+        return self.__model_training_config_base_json["lossThreshold"] if "lossThreshold" in self.__model_training_config_base_json else 0.0001
+    
+    @loss_threshold.setter
+    def loss_threshold(self, loss_threshold):
+        self.__model_training_config_base_json["lossThreshold"] = loss_threshold
+    
+    @property
+    def enough_accuracy_epoch_count(self):
+        return self.__model_training_config_base_json["enoughAccuracyEpochCount"] if "enoughAccuracyEpochCount" in self.__model_training_config_base_json else 10
+    
+    @enough_accuracy_epoch_count.setter
+    def enough_accuracy_epoch_count(self, count):
+        self.__model_training_config_base_json["enoughAccuracyEpochCount"] = count
+
     def json(self):
         return self.__model_training_config_base_json

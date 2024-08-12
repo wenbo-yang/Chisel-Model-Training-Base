@@ -22,6 +22,8 @@ config.storage_url = "./dev/localStorage"
 config.env = "development"
 config.model_uuid = uuid4()
 config.temp_image_path = "./dev/tempImage"
+config.enough_accuracy_epoch_count = 1
+config.loss_threshold = 0.1
 
 training_data_local_storage_dao = TrainingDataLocalStorageDao(config)
 data_piper = DataPiper(config)
@@ -103,4 +105,14 @@ def test_load_enough_test_to_run_simple_cnn_net_should_pass():
         neural_net_trainer.load_training_data(saved_training_data)
     except Exception:
         assert False
+
+def test_load_enough_test_to_run_simple_cnn_net_should_pass():
+    __load_and_compress_neural_net_training_images()
+    saved_training_data = training_data_local_storage_dao.get_all_training_data()
+    neural_net_trainer = NeuralNetTrainer(config)
+    neural_net_trainer.load_training_data(saved_training_data)
+    neural_net_trainer.train()
+
+    assert neural_net_trainer.neural_net_model != None
+
 
