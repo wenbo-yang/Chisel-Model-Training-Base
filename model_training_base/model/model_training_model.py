@@ -33,7 +33,7 @@ class ModelTrainingModel:
 
         self.__neural_net_trainer.load_training_data(all_training_data)
         self.__neural_net_trainer.train()
-        model_to_be_saved = self.__neural_net_trainer.model
+        model_to_be_saved = self.__neural_net_trainer.neural_net_model
 
         self.__model_storage.save_model(execution_id, model_to_be_saved)
         
