@@ -26,8 +26,8 @@ config.env = "development"
 config.model_uuid = uuid4()
 config.temp_image_path = "./dev/tempImage"
 config.enough_accuracy_epoch_count = 1
-config.loss_threshold = 0.5
-config.accuracy_threshold = 0.5
+config.loss_threshold = 0.2
+config.accuracy_threshold = 0.2
 
 training_data_local_storage_dao = TrainingDataLocalStorageDao(config)
 data_piper = DataPiper(config)
