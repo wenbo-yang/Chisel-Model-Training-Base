@@ -2,10 +2,9 @@ import sys
 sys.path.append("./")
 sys.path.append("./model_training_base")
 
-import gzip
-import base64
 import pytest
 
+from commonLib import load_and_compress_test_image
 from genericpath import isfile
 from ntpath import join
 from os import listdir
@@ -28,20 +27,13 @@ data_piper = DataPiper(config)
 model_training_model = ModelTrainingModel(config)
 model_local_storage_dao = ModelLocalStorageDao(config)
 
-def __load_and_compress_test_image(test_image_location):
-    encoded_string = ""
-    with open(test_image_location, "rb") as image_file:   
-        compressed_bytes = gzip.compress(image_file.read())
-        encoded_string = str(base64.b64encode(compressed_bytes), "ascii")
-    return encoded_string
-
 def _load_and_compress_test_image1():
     test_image_location = "./test/unit/test_data/zou_character_skeleton.png"
-    return __load_and_compress_test_image(test_image_location)
+    return load_and_compress_test_image(test_image_location)
 
 def _load_and_compress_test_image2():
     test_image_location = "./test/unit/test_data/zou_human_skeleton.png"
-    return __load_and_compress_test_image(test_image_location)
+    return load_and_compress_test_image(test_image_location)
 
 @pytest.fixture(autouse=True)
 def run_after_tests():

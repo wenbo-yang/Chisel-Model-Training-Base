@@ -58,7 +58,7 @@ class ModelLocalStorageDao(ModelStorageDao):
         executions = []
         
         if os.path.exists(self.__folder_path): 
-            files = [f for f in os.listdir(self.__folder_path) if isfile(self.__folder_path + "/" + f)]
+            files = [f for f in os.listdir(self.__folder_path) if isfile(self.__folder_path + "/" + f) and f.endswith(".json")]
             for file in files:
                 file = self.__folder_path + "/" + file
                 f = open(file)
@@ -96,6 +96,13 @@ class ModelLocalStorageDao(ModelStorageDao):
         f = open(execution_file_path, 'w')
         f.write(json.dumps(execution.json()))
         f.close()
+
+        f = open(execution_file_path)
+        content = json.load(f)
+        f.close()
+
+        print(content)
+
 
     def get_latest_trained_model(self):
         execution = self.get_latest_model_training_execution_by_status(TRAININGSTATUS.FINISHED)

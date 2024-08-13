@@ -1,11 +1,12 @@
 import sys
+
 sys.path.append("./")
 sys.path.append("./model_training_base")
 
 import pytest
 import json
-import time
 
+from commonLib import load_and_compress_neural_net_training_images
 from uuid import uuid4
 from model_training_base.model.training_data_storage import TrainingDataStorage
 from model_training_base.model.model_training_model import ModelTrainingModel
@@ -19,6 +20,10 @@ config = ModelTrainingBaseConfig()
 config.storage_url = "./dev/localStorage"
 config.env = "development"
 config.model_uuid = uuid4()
+config.temp_image_path = "./dev/tempImage"
+config.enough_accuracy_epoch_count = 1
+config.loss_threshold = 0.5
+config.accuracy_threshold = 0.5
 
 class FakeTorch:
     def save(self, object, path):
@@ -34,7 +39,7 @@ class FakeNeuralNetTrainer:
         pass
 
     @property
-    def model(self):
+    def neural_net_model(self):
         return {"model": "data"}
 
 model_local_storage_dao = ModelLocalStorageDao(config, FakeTorch())
@@ -117,3 +122,17 @@ def test_can_have_multiple_models():
     another_model_path = model_training_model.get_trained_model_by_execution_id(another_execution.execution_id)
 
     assert model_path != another_model_path
+
+
+def test_store_data_and_then_train_should_successfully_train_an_model():
+    model_training_model = ModelTrainingModel(config)
+    load_and_compress_neural_net_training_images(model_training_model)
+
+    execution = model_training_model.start_model_training()
+    model_training_model.train_model(execution.execution_id)
+
+    model_path = model_training_model.get_latest_training_model()
+    another_model_path = model_training_model.get_trained_model_by_execution_id(execution.execution_id)
+
+    assert model_path != None
+    assert model_path == another_model_path

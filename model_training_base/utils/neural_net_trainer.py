@@ -66,7 +66,7 @@ class NeuralNetTrainer:
             self.__logger.log("Epoch [{}]: Train loss = {:.5f}, Valid loss = {:.5f}, Train Acc = {:.5f}, Valid Acc = {:.5f}".format(epoch_count, train_loss/train_corrects, valid_loss/validation_corrects, train_corrects/total_train_count, validation_corrects/total_validation_count))
             epoch_count += 1
 
-            if train_loss/train_corrects < self.__config.loss_threshold and valid_loss/validation_corrects < self.__config.loss_threshold and train_corrects/total_train_count >= 1.00000 and validation_corrects/total_validation_count:
+            if train_loss/train_corrects < self.__config.loss_threshold and valid_loss/validation_corrects < self.__config.loss_threshold and train_corrects/total_train_count >= self.__config.accuracy_threshold and validation_corrects/total_validation_count >= self.__config.accuracy_threshold:
                 accurate_epoch_count += 1
 
     def __get_device(self):

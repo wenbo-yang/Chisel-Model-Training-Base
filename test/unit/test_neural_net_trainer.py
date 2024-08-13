@@ -1,12 +1,14 @@
 import os
 import sys
+
+
+
 sys.path.append("./")
 sys.path.append("./model_training_base")
-
-import gzip
-import base64
+sys.path.append("./test")
 import pytest
 
+from commonLib import *
 from genericpath import isdir, isfile
 from uuid import uuid4
 from model_training_base.dao.model_local_storage_dao import ModelLocalStorageDao
@@ -16,6 +18,7 @@ from model_training_base.dao.training_data_local_storage_dao import TrainingData
 from model_training_base.utils.data_loader import DataLoader
 from model_training_base.utils.data_piper import DataPiper
 from model_training_base.utils.neural_net_trainer import NeuralNetTrainer
+
 
 config = ModelTrainingBaseConfig()
 config.storage_url = "./dev/localStorage"
@@ -31,33 +34,13 @@ data_piper = DataPiper(config)
 model_training_model = ModelTrainingModel(config)
 model_local_storage_dao = ModelLocalStorageDao(config)
 
-def __load_and_compress_neural_net_training_images():
-    root_folder = "./test/unit/test_data"
-    directories = [d for d in os.listdir(root_folder) if isdir(root_folder + "/" + d)]
-    
-    for d in directories:
-        sub_dir = root_folder + "/" + d;
-        files = [f for f in os.listdir(sub_dir) if isfile(sub_dir + "/" + f)]
-        compressed_data_array = []
-        for f in files:
-            file_path = sub_dir + "/" + f
-            compressed_data_array.append(__load_and_compress_test_image(file_path))
-        model_training_model.store_training_data(d, compressed_data_array)
-
-def __load_and_compress_test_image(test_image_location):
-    encoded_string = ""
-    with open(test_image_location, "rb") as image_file:   
-        compressed_bytes = gzip.compress(image_file.read())
-        encoded_string = str(base64.b64encode(compressed_bytes), "ascii")
-    return encoded_string
-
 def _load_and_compress_test_image1():
     test_image_location = "./test/unit/test_data/zou_character_skeleton.png"
-    return __load_and_compress_test_image(test_image_location)
+    return load_and_compress_test_image(test_image_location)
 
 def _load_and_compress_test_image2():
     test_image_location = "./test/unit/test_data/zou_human_skeleton.png"
-    return __load_and_compress_test_image(test_image_location)
+    return load_and_compress_test_image(test_image_location)
 
 @pytest.fixture(autouse=True)
 def run_after_tests():
@@ -94,7 +77,7 @@ def test_not_having_training_data_should_raise_exception():
     assert exception_raised
 
 def test_load_enough_test_to_run_simple_cnn_net_should_pass():
-    __load_and_compress_neural_net_training_images()
+    load_and_compress_neural_net_training_images()
     saved_training_data = training_data_local_storage_dao.get_all_training_data()
     assert len(saved_training_data) == 3
     assert len(saved_training_data[0].data) > 0
@@ -108,7 +91,7 @@ def test_load_enough_test_to_run_simple_cnn_net_should_pass():
         assert False
 
 def test_load_enough_test_to_run_simple_cnn_net_should_pass():
-    __load_and_compress_neural_net_training_images()
+    load_and_compress_neural_net_training_images(model_training_model)
     saved_training_data = training_data_local_storage_dao.get_all_training_data()
     neural_net_trainer = NeuralNetTrainer(config)
     neural_net_trainer.load_training_data(saved_training_data)
