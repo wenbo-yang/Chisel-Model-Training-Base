@@ -11,10 +11,10 @@ def load_and_compress_test_image(test_image_location):
         encoded_string = str(base64.b64encode(compressed_bytes), "ascii")
     return encoded_string
 
-def load_and_compress_neural_net_training_images(model_training_model):
+def load_and_compress_neural_net_training_images():
     root_folder = "./test/unit/test_data"
     directories = [d for d in os.listdir(root_folder) if isdir(root_folder + "/" + d)]
-    
+    training_data = []
     for d in directories:
         sub_dir = root_folder + "/" + d;
         files = [f for f in os.listdir(sub_dir) if isfile(sub_dir + "/" + f)]
@@ -22,6 +22,8 @@ def load_and_compress_neural_net_training_images(model_training_model):
         for f in files:
             file_path = sub_dir + "/" + f
             compressed_data_array.append(load_and_compress_test_image(file_path))
-        model_training_model.store_training_data(d, compressed_data_array)
+       
+        training_data.append({"modelKey": d, "data": compressed_data_array})
     
+    return training_data
 

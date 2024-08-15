@@ -92,7 +92,6 @@ class SavedTrainingData:
         if "data" in self.__saved_training_data:
             self.__data_map = self.__saved_training_data["data"]
 
-
 class ReceivedTrainingData:
     def __init__(self, received_training_data = None):
         self.__received_training_data = received_training_data

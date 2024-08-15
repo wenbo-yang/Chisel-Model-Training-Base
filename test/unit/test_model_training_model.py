@@ -123,10 +123,11 @@ def test_can_have_multiple_models():
 
     assert model_path != another_model_path
 
-
 def test_store_data_and_then_train_should_successfully_train_an_model():
     model_training_model = ModelTrainingModel(config)
-    load_and_compress_neural_net_training_images(model_training_model)
+    training_data = load_and_compress_neural_net_training_images()
+    for item in training_data:
+        model_training_model.store_training_data(item["modelKey"], item["data"])
 
     execution = model_training_model.start_model_training()
     model_training_model.train_model(execution.execution_id)

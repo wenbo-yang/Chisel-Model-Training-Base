@@ -77,7 +77,10 @@ def test_not_having_training_data_should_raise_exception():
     assert exception_raised
 
 def test_load_enough_test_to_run_simple_cnn_net_should_pass():
-    load_and_compress_neural_net_training_images()
+    training_data = load_and_compress_neural_net_training_images()
+    for item in training_data:
+        model_training_model.store_training_data(item["modelKey"], item["data"])
+
     saved_training_data = training_data_local_storage_dao.get_all_training_data()
     assert len(saved_training_data) == 3
     assert len(saved_training_data[0].data) > 0
@@ -91,7 +94,10 @@ def test_load_enough_test_to_run_simple_cnn_net_should_pass():
         assert False
 
 def test_load_enough_test_to_run_simple_cnn_net_should_pass():
-    load_and_compress_neural_net_training_images(model_training_model)
+    training_data = load_and_compress_neural_net_training_images()
+    for item in training_data:
+        model_training_model.store_training_data(item["modelKey"], item["data"])
+    
     saved_training_data = training_data_local_storage_dao.get_all_training_data()
     neural_net_trainer = NeuralNetTrainer(config)
     neural_net_trainer.load_training_data(saved_training_data)
