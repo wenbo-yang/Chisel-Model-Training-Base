@@ -8,6 +8,15 @@ class TRAININGSTATUS(str, Enum):
     NOCHANGE = 'NOCHANGE'
     UNKNOWN = 'UNKNOWN'
 
+class TRAININGDATATYPE(str, Enum):
+    BINARYSTRINGWITHNEWLINE = 'BINARYSTRINGWITHNEWLINE'
+    PNG = 'PNG'
+    PNGIMAGEPATH = 'PNGIMAGEPATH'
+
+class COMPRESSIONTYPE(str, Enum):
+    GZIP = 'GZIP'
+    PLAIN = 'PLAIN'
+
 class ModelTrainingExecution:
     def __init__(self, model_training_execution_json = None):
         self.__model_training_execution_json = model_training_execution_json or dict()
@@ -82,6 +91,45 @@ class SavedTrainingData:
     def __parse_data_into_map(self): 
         if "data" in self.__saved_training_data:
             self.__data_map = self.__saved_training_data["data"]
+
+
+class ReceivedTrainingData:
+    def __init__(self, received_training_data = None):
+        self.__received_training_data = received_training_data
+    
+    @property
+    def model_key(self):
+        return self.__received_training_data["modelKey"] if "modelKey" in self.__received_training_data else ""
+
+    @model_key.setter
+    def model_key(self, value):
+        self.__received_training_data["modelKey"] = value
+
+    @property
+    def data_type(self):
+        return self.__received_training_data["dataType"] if "dataType" in self.__received_training_data else ""
+    
+    @data_type.setter
+    def data_type(self, value):
+        self.__received_training_data["dataType"] = value
+
+    @property
+    def compression(self):
+        return self.__received_training_data["compression"] if "compression" in self.__received_training_data else COMPRESSIONTYPE.PLAIN
+    
+    @compression.setter
+    def compression(self, value):
+        self.__received_training_data["compression"] = value
+
+    @property
+    def data(self):
+        return self.__received_training_data["data"] if "data" in self.__received_training_data else []
+    
+    @data.setter
+    def data(self, value):
+        self.__received_training_data["data"] = value
+    
+
 
     
     

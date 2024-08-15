@@ -1,12 +1,15 @@
+from fastapi import BackgroundTasks
 from model_training_base.model.model_training_model import ModelTrainingModel
 
 class ModelTrainingController:
-    def __init__(self, config, model_training_model = None): 
+    def __init__(self, config, model_training_model = None, background_tasks = None): 
         self.__config = config
         self.__model_training_model = model_training_model or ModelTrainingModel(config)
+        self.__background_tasks = background_tasks or BackgroundTasks.background_tasks
         return
     
     def _upload_training_data(self, training_data): 
+        
         pass
 
     def _start_model_training(self): 
