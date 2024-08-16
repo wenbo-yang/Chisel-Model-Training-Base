@@ -1,7 +1,7 @@
 import torch.nn as nn
 
 class SimpleCNN(nn.Module):
-    def __init__(self, config):
+    def __init__(self, config, output_size):
         self.__config = config
         super().__init__()
 
@@ -17,7 +17,7 @@ class SimpleCNN(nn.Module):
             nn.MaxPool2d(2, 2)
         )
 
-        self.fc = nn.Linear(64 * 50, 3)
+        self.fc = nn.Linear(64 * 50, output_size)
 
     def forward(self, x):
         x = self.layer1(x)

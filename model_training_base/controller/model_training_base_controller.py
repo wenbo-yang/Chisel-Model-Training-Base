@@ -1,3 +1,4 @@
+import asyncio
 import base64
 import gzip
 from fastapi import BackgroundTasks
@@ -20,18 +21,24 @@ class ModelTrainingBaseController:
 
         return self.__model_training_model.store_training_data(received_training_data.model_key, received_training_data.data)
 
-    async def _start_and_train_model(self): 
-        pass
+    def _start_and_train_model(self): 
+        execution = self.__model_training_model.start_model_training()
+        self.__background_tasks.add_task(self.__model_training_model.train_model, execution.execution_id)
+
+        return execution
 
     def _get_model_training_execution(self, execution_id):
-        pass
-
-    def _get_latest_trained_model(self, execution_id):
-        pass
+        return self.__model_training_model.get_model_training_execution(execution_id)
+        
+    def _get_latest_trained_model(self):
+        return self.__model_training_model.get_latest_training_model()
 
     def _get_trained_model_by_execution_id(self, execution_id):
-        pass
+        return self.__model_training_model.get_trained_model_by_execution_id(execution_id)
     
+    def _get_background_tasks(self):
+        return self.__background_tasks
+        
     def __compresse_data(self, received_training_data):
         compressed_data = []
         for d in received_training_data.data:
@@ -39,4 +46,7 @@ class ModelTrainingBaseController:
             compressed_data.append(str(base64.b64encode(compressed_bytes), "ascii"))
 
         received_training_data.data = compressed_data
+    
+    async def __async_train_model(self, execution_id):
+        self.__model_training_model.train_model(execution_id)
         

@@ -13,9 +13,9 @@ class NeuralNetTrainer:
         self.__config = config
         self.__data_piper = data_piper or DataPiper(self.__config)
         self.__data_loader = data_loader or DataLoader(self.__config)
-        self.__neural_net_model = net or NeuralNetFactory.make_neural_network(self.__config)
         self.__torch = torch_interface or torch
         self.__logger = logger or LoggerFactory.make_logger(self.__config, "NeuralNetTrainer")
+        self.__neural_net_model = net
         
     def load_training_data(self, saved_training_data):
         self.__data_piper.unzip_data(saved_training_data)
@@ -24,6 +24,11 @@ class NeuralNetTrainer:
             raise Exception("no test loader and train loader, cannot continue")
             
     def train(self):
+        if self.__data_loader.test_loader == {} or self.__data_loader.train_loader == {}:
+            raise Exception("no test loader and train loader, cannot continue, try load_training_data first")
+
+        self.__neural_net_model = NeuralNetFactory.make_neural_network(self.__config, len(self.__data_piper.model_keys))
+
         device = self.__torch.device(self.__get_device())
 
         criterion = nn.CrossEntropyLoss()

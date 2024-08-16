@@ -2,6 +2,7 @@ brew install pyenv
 pyenv install 3.9
 pyenv global 3.9
 pip install pytest
+pip install pytest-asyncio
 pip install torch torchvision torchaudio
 pip install fastapi
 pip install fastapi uvicorn[standard] cryptography
