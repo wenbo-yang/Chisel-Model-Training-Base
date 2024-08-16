@@ -39,8 +39,8 @@ class FakeBackgroundTasks:
         self.__function(self.__arg)
 
 class ModelTrainingTestController(ModelTrainingBaseController):
-    def __init__(self, config, model_training_model = None, background_tasks = None):
-        super(ModelTrainingTestController, self).__init__(config, model_training_model, background_tasks)
+    def __init__(self, config, background_tasks_interface, model_training_model = None):
+        super(ModelTrainingTestController, self).__init__(config, background_tasks_interface, model_training_model)
 
     def upload_training_data(self, received_training_data):
         return super()._upload_training_data(received_training_data)
@@ -64,11 +64,11 @@ def run_after_tests():
     training_data_local_storage_dao.delete_all_training_data()
     
 def test_create_controller_should_create_a_controller_object():
-    model_training_test_controller = ModelTrainingTestController(config)
+    model_training_test_controller = ModelTrainingTestController(config, FakeBackgroundTasks())
     assert model_training_test_controller != None
 
 def test_upload_training_data_should_return_created_status():
-    model_training_test_controller = ModelTrainingTestController(config)
+    model_training_test_controller = ModelTrainingTestController(config, FakeBackgroundTasks())
     training_data = load_and_compress_neural_net_training_images()
     
     for td in training_data:
@@ -78,7 +78,7 @@ def test_upload_training_data_should_return_created_status():
 
 def test_start_and_train_model_should_return_immediately_with_execution_and_inprogress_status():
     test_upload_training_data_should_return_created_status()
-    model_training_test_controller = ModelTrainingTestController(config)
+    model_training_test_controller = ModelTrainingTestController(config, FakeBackgroundTasks())
     execution = model_training_test_controller.start_and_train_model()
     assert execution.execution_id != None
     assert (not execution.model_path) == True
@@ -88,7 +88,7 @@ def test_start_and_train_model_should_return_immediately_with_execution_and_inpr
 def test_wait_until_model_training_is_finished_get_model_should_return_model_path():
     test_upload_training_data_should_return_created_status()
     fake_background_tasks = FakeBackgroundTasks()
-    model_training_test_controller = ModelTrainingTestController(config, background_tasks=fake_background_tasks)
+    model_training_test_controller = ModelTrainingTestController(config, background_tasks_interface=fake_background_tasks)
     execution = model_training_test_controller.start_and_train_model()
     fake_background_tasks.run()
     execution = model_training_test_controller.get_model_training_execution(execution.execution_id)

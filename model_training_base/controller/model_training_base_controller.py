@@ -6,10 +6,10 @@ from model_training_base.model.model_training_model import ModelTrainingModel
 from model_training_base.types.trainer_types import COMPRESSIONTYPE, TRAININGDATATYPE, ReceivedTrainingData
 
 class ModelTrainingBaseController:
-    def __init__(self, config, model_training_model = None, background_tasks = None): 
+    def __init__(self, config, background_tasks_interface, model_training_model = None, ): 
         self.__config = config
         self.__model_training_model = model_training_model or ModelTrainingModel(config)
-        self.__background_tasks = background_tasks or BackgroundTasks()
+        self.__background_tasks = background_tasks_interface
         return
     
     def _upload_training_data(self, received_training_data: ReceivedTrainingData):
@@ -47,6 +47,3 @@ class ModelTrainingBaseController:
 
         received_training_data.data = compressed_data
     
-    async def __async_train_model(self, execution_id):
-        self.__model_training_model.train_model(execution_id)
-        
