@@ -30,7 +30,6 @@ model_storage = ModelStorage(config)
 training_data_storage = TrainingDataStorage(config)
 
 class FakeBackgroundTasks: 
-    
     def add_task(self, function, arg):
         self.__function = function
         self.__arg = arg

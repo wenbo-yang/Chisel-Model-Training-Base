@@ -1,7 +1,6 @@
-import asyncio
 import base64
 import gzip
-from fastapi import BackgroundTasks
+
 from model_training_base.model.model_training_model import ModelTrainingModel
 from model_training_base.types.trainer_types import COMPRESSIONTYPE, TRAININGDATATYPE, ReceivedTrainingData
 
