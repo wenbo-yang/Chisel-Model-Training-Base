@@ -1,4 +1,4 @@
-from uuid import uuid5
+import uuid
 from model_training_base.model.model_storage import ModelStorage
 from model_training_base.model.training_data_storage import TrainingDataStorage
 from model_training_base.types.trainer_types import TRAININGSTATUS, SavedTrainingData
@@ -14,7 +14,7 @@ class ModelTrainingModel:
     def store_training_data(self, model_key, compressed_data):
         data = {}
         for cd in compressed_data:
-            key = str(uuid5(self.__config.model_uuid, str(cd)))
+            key = str(uuid.uuid5(uuid.UUID(self.__config.model_uuid), str(cd)))
             data[key] = cd
     
         new_data_saved = self.__training_data_storage.save_data(model_key, data)

@@ -2,8 +2,9 @@ import sys
 sys.path.append("./")
 sys.path.append("./model_training_base")
 
-from uuid import uuid4
 import pytest
+import uuid
+
 from model_training_base.types.config import ModelTrainingBaseConfig
 from model_training_base.dao.training_data_local_storage_dao import TrainingDataLocalStorageDao
 from model_training_base.model.training_data_storage import TrainingDataStorage
@@ -11,7 +12,7 @@ from model_training_base.model.training_data_storage import TrainingDataStorage
 config = ModelTrainingBaseConfig()
 config.storage_url = "./dev/localStorage"
 config.env = "development"
-config.model_uuid = uuid4()
+config.model_uuid = str(uuid.uuid4())
 
 @pytest.fixture(autouse=True)
 def run_after_tests():

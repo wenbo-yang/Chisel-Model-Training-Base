@@ -7,10 +7,10 @@ sys.path.append("./")
 sys.path.append("./model_training_base")
 sys.path.append("./test")
 import pytest
+import uuid
 
 from commonLib import *
 from genericpath import isdir, isfile
-from uuid import uuid4
 from model_training_base.dao.model_local_storage_dao import ModelLocalStorageDao
 from model_training_base.model.model_training_model import ModelTrainingModel
 from model_training_base.types.config import ModelTrainingBaseConfig
@@ -23,7 +23,7 @@ from model_training_base.utils.neural_net_trainer import NeuralNetTrainer
 config = ModelTrainingBaseConfig()
 config.storage_url = "./dev/localStorage"
 config.env = "development"
-config.model_uuid = uuid4()
+config.model_uuid = str(uuid.uuid4())
 config.temp_image_path = "./dev/tempImage"
 config.enough_accuracy_epoch_count = 1
 config.loss_threshold = 0.2

@@ -4,13 +4,11 @@ import sys
 sys.path.append("./")
 sys.path.append("./model_training_base")
 
-import gzip
-import base64
 import pytest
+import uuid
 
 from genericpath import isfile
 from os import listdir
-from uuid import uuid4
 from commonLib import load_and_compress_test_image
 from model_training_base.dao.model_local_storage_dao import ModelLocalStorageDao
 from model_training_base.model.model_training_model import ModelTrainingModel
@@ -23,7 +21,7 @@ from model_training_base.utils.data_piper import DataPiper
 config = ModelTrainingBaseConfig()
 config.storage_url = "./dev/localStorage"
 config.env = "development"
-config.model_uuid = uuid4()
+config.model_uuid = str(uuid.uuid4())
 config.temp_image_path = "./dev/tempImage"
 config.data_size = 50
 

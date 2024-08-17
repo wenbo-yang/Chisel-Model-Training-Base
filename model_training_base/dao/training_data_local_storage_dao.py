@@ -1,7 +1,7 @@
 import json
 import os
 import shutil
-from uuid import uuid5
+import uuid
 from model_training_base.dao.training_data_storage_dao import TrainingDataStorageDao
 from model_training_base.types.trainer_types import SavedTrainingData
 
@@ -12,8 +12,8 @@ class TrainingDataLocalStorageDao(TrainingDataStorageDao):
         return
     
     def get_training_data(self, model_key): 
-        uuid = uuid5(self.__config.model_uuid, model_key)
-        file_path = self.__folder_path + "/" + str(uuid) + ".json"
+        id = uuid.uuid5(uuid.UUID(self.__config.model_uuid), model_key)
+        file_path = self.__folder_path + "/" + str(id) + ".json"
 
         saved_training_data = {}
 
@@ -25,8 +25,8 @@ class TrainingDataLocalStorageDao(TrainingDataStorageDao):
         return SavedTrainingData(saved_training_data)
     
     def save_data(self, model_key, new_data):
-        uuid = uuid5(self.__config.model_uuid, model_key)
-        file_path = self.__folder_path + "/" + str(uuid) + ".json"
+        id = uuid.uuid5(uuid.UUID(self.__config.model_uuid), model_key)
+        file_path = self.__folder_path + "/" + str(id) + ".json"
         os.makedirs(self.__folder_path, exist_ok=True)
 
         saved_training_data = {}
@@ -54,8 +54,8 @@ class TrainingDataLocalStorageDao(TrainingDataStorageDao):
         shutil.rmtree(self.__folder_path, ignore_errors=True)
 
     def delete_selected_training_data(self, character):
-        uuid = uuid5(self.__config.model_uuid, character)
-        file_path = self.__folder_path + "/" + str(uuid) + ".json"
+        id = uuid.uuid5(uuid.UUID(self.__config.model_uuid), character)
+        file_path = self.__folder_path + "/" + str(id) + ".json"
 
         if os.path.exists(file_path):
             os.remove(file_path)

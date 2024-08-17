@@ -2,13 +2,13 @@ import sys
 sys.path.append("./")
 sys.path.append("./model_training_base")
 import pytest
+import uuid
 
-from uuid import uuid4
 from model_training_base.dao.training_data_local_storage_dao import TrainingDataLocalStorageDao
 from model_training_base.types.config import ModelTrainingBaseConfig
 
 config = ModelTrainingBaseConfig()
-config.model_uuid = uuid4()
+config.model_uuid = str(uuid.uuid4())
 config.storage_url = "./dev/localStorage"
 
 @pytest.fixture(autouse=True)

@@ -5,9 +5,9 @@ sys.path.append("./model_training_base")
 
 import pytest
 import json
+import uuid
 
 from commonLib import load_and_compress_neural_net_training_images
-from uuid import uuid4
 from model_training_base.model.training_data_storage import TrainingDataStorage
 from model_training_base.model.model_training_model import ModelTrainingModel
 from model_training_base.model.model_storage import ModelStorage
@@ -19,7 +19,7 @@ from model_training_base.types.trainer_types import TRAININGSTATUS
 config = ModelTrainingBaseConfig()
 config.storage_url = "./dev/localStorage"
 config.env = "development"
-config.model_uuid = uuid4()
+config.model_uuid = str(uuid.uuid4())
 config.temp_image_path = "./dev/tempImage"
 config.enough_accuracy_epoch_count = 1
 config.loss_threshold = 0.2
