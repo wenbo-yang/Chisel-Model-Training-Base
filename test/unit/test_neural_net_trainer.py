@@ -1,7 +1,7 @@
 import sys
 sys.path.append("./")
-sys.path.append("./model_training_base")
 sys.path.append("./test")
+sys.path.append("./model_training_base")
 
 import pytest
 import uuid
