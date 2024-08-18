@@ -11,8 +11,7 @@ def load_and_compress_test_image(test_image_location):
         encoded_string = str(base64.b64encode(compressed_bytes), "ascii")
     return encoded_string
 
-def load_and_compress_neural_net_training_images():
-    root_folder = "./test/unit/test_data"
+def load_and_compress_neural_net_training_images(root_folder):
     directories = [d for d in os.listdir(root_folder) if isdir(root_folder + "/" + d)]
     training_data = []
     for d in directories:

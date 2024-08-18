@@ -1,16 +1,11 @@
-import os
 import sys
-
-
-
 sys.path.append("./")
 sys.path.append("./model_training_base")
 sys.path.append("./test")
+
 import pytest
 import uuid
 
-from commonLib import *
-from genericpath import isdir, isfile
 from model_training_base.dao.model_local_storage_dao import ModelLocalStorageDao
 from model_training_base.model.model_training_model import ModelTrainingModel
 from model_training_base.types.config import ModelTrainingBaseConfig
@@ -18,7 +13,7 @@ from model_training_base.dao.training_data_local_storage_dao import TrainingData
 from model_training_base.utils.data_loader import DataLoader
 from model_training_base.utils.data_piper import DataPiper
 from model_training_base.utils.neural_net_trainer import NeuralNetTrainer
-
+from test_helpers.test_helper_functions import load_and_compress_neural_net_training_images, load_and_compress_test_image
 
 config = ModelTrainingBaseConfig()
 config.storage_url = "./dev/localStorage"
@@ -77,7 +72,7 @@ def test_not_having_training_data_should_raise_exception():
     assert exception_raised
 
 def test_load_enough_test_to_run_simple_cnn_net_should_pass():
-    training_data = load_and_compress_neural_net_training_images()
+    training_data = load_and_compress_neural_net_training_images("./test/unit/test_data")
     for item in training_data:
         model_training_model.store_training_data(item["modelKey"], item["data"])
 
@@ -93,8 +88,8 @@ def test_load_enough_test_to_run_simple_cnn_net_should_pass():
     except Exception:
         assert False
 
-def test_load_enough_test_to_run_simple_cnn_net_should_pass():
-    training_data = load_and_compress_neural_net_training_images()
+def test_load_enough_test_to_train_simple_cnn_net_should_pass():
+    training_data = load_and_compress_neural_net_training_images("./test/unit/test_data")
     for item in training_data:
         model_training_model.store_training_data(item["modelKey"], item["data"])
     

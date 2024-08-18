@@ -1,12 +1,11 @@
 import sys
-
 sys.path.append("./")
+sys.path.append("./test")
 sys.path.append("./model_training_base")
 
 import pytest
 import uuid
 
-from commonLib import load_and_compress_neural_net_training_images
 from model_training_base.controller.model_training_base_controller import ModelTrainingBaseController
 from model_training_base.dao.model_local_storage_dao import ModelLocalStorageDao
 from model_training_base.dao.training_data_local_storage_dao import TrainingDataLocalStorageDao
@@ -14,6 +13,7 @@ from model_training_base.model.model_storage import ModelStorage
 from model_training_base.model.training_data_storage import TrainingDataStorage
 from model_training_base.types.config import ModelTrainingBaseConfig
 from model_training_base.types.trainer_types import COMPRESSIONTYPE, TRAININGDATATYPE, TRAININGSTATUS, ReceivedTrainingData
+from test_helpers.test_helper_functions import load_and_compress_neural_net_training_images
 
 config = ModelTrainingBaseConfig()
 config.storage_url = "./dev/localStorage"
@@ -68,7 +68,7 @@ def test_create_controller_should_create_a_controller_object():
 
 def test_upload_training_data_should_return_created_status():
     model_training_test_controller = ModelTrainingTestController(FakeBackgroundTasks(), config)
-    training_data = load_and_compress_neural_net_training_images()
+    training_data = load_and_compress_neural_net_training_images("./test/unit/test_data")
     
     for td in training_data:
         td["dataType"] = TRAININGDATATYPE.PNG

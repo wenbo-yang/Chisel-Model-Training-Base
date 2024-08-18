@@ -1,6 +1,4 @@
 import sys
-
-
 sys.path.append("./")
 sys.path.append("./model_training_base")
 
@@ -9,13 +7,14 @@ import uuid
 
 from genericpath import isfile
 from os import listdir
-from commonLib import load_and_compress_test_image
+
 from model_training_base.dao.model_local_storage_dao import ModelLocalStorageDao
 from model_training_base.model.model_training_model import ModelTrainingModel
 from model_training_base.types.config import ModelTrainingBaseConfig
 from model_training_base.dao.training_data_local_storage_dao import TrainingDataLocalStorageDao
 from model_training_base.utils.data_loader import DataLoader
 from model_training_base.utils.data_piper import DataPiper
+from test_helpers.test_helper_functions import load_and_compress_test_image
 
 
 config = ModelTrainingBaseConfig()

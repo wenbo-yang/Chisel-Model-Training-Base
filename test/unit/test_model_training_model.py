@@ -1,13 +1,12 @@
 import sys
-
 sys.path.append("./")
+sys.path.append("./test")
 sys.path.append("./model_training_base")
 
 import pytest
 import json
 import uuid
 
-from commonLib import load_and_compress_neural_net_training_images
 from model_training_base.model.training_data_storage import TrainingDataStorage
 from model_training_base.model.model_training_model import ModelTrainingModel
 from model_training_base.model.model_storage import ModelStorage
@@ -15,6 +14,7 @@ from model_training_base.types.config import ModelTrainingBaseConfig
 from model_training_base.dao.model_local_storage_dao import ModelLocalStorageDao
 from model_training_base.dao.training_data_local_storage_dao import TrainingDataLocalStorageDao
 from model_training_base.types.trainer_types import TRAININGSTATUS
+from test_helpers.test_helper_functions import *
 
 config = ModelTrainingBaseConfig()
 config.storage_url = "./dev/localStorage"
@@ -125,7 +125,7 @@ def test_can_have_multiple_models():
 
 def test_store_data_and_then_train_should_successfully_train_an_model():
     model_training_model = ModelTrainingModel(config)
-    training_data = load_and_compress_neural_net_training_images()
+    training_data = load_and_compress_neural_net_training_images("./test/unit/test_data")
     for item in training_data:
         model_training_model.store_training_data(item["modelKey"], item["data"])
 

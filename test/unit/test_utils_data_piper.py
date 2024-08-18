@@ -5,7 +5,6 @@ sys.path.append("./model_training_base")
 import pytest
 import uuid
 
-from commonLib import load_and_compress_test_image
 from genericpath import isfile
 from ntpath import join
 from os import listdir
@@ -15,6 +14,8 @@ from model_training_base.model.model_training_model import ModelTrainingModel
 from model_training_base.types.config import ModelTrainingBaseConfig
 from model_training_base.dao.training_data_local_storage_dao import TrainingDataLocalStorageDao
 from model_training_base.utils.data_piper import DataPiper
+from test_helpers.test_helper_functions import load_and_compress_test_image
+
 
 config = ModelTrainingBaseConfig()
 config.storage_url = "./dev/localStorage"
