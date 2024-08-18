@@ -5,10 +5,10 @@ from model_training_base.model.model_training_model import ModelTrainingModel
 from model_training_base.types.trainer_types import COMPRESSIONTYPE, TRAININGDATATYPE, ReceivedTrainingData
 
 class ModelTrainingBaseController:
-    def __init__(self, config, background_tasks_interface, model_training_model = None, ): 
+    def __init__(self, background_tasks_interface, config, model_training_model = None, ): 
         self.__config = config
-        self.__model_training_model = model_training_model or ModelTrainingModel(config)
         self.__background_tasks = background_tasks_interface
+        self.__model_training_model = model_training_model or ModelTrainingModel(self.__config)
         return
     
     def _upload_training_data(self, received_training_data: ReceivedTrainingData):
