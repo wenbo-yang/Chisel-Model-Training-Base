@@ -14,7 +14,7 @@ from model_training_base.types.config import ModelTrainingBaseConfig
 from model_training_base.dao.model_local_storage_dao import ModelLocalStorageDao
 from model_training_base.dao.training_data_local_storage_dao import TrainingDataLocalStorageDao
 from model_training_base.types.trainer_types import TRAININGSTATUS
-from test_helpers.test_helper_functions import *
+from test_helpers.test_helper_functions import load_and_compress_neural_net_training_images 
 
 config = ModelTrainingBaseConfig()
 config.storage_url = "./dev/localStorage"
