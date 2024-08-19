@@ -3,11 +3,12 @@ import gzip
 
 from model_training_base.model.model_training_model import ModelTrainingModel
 from model_training_base.types.trainer_types import COMPRESSIONTYPE, TRAININGDATATYPE, ReceivedTrainingData
+from model_training_base.utils.not_background_task import NotBackgroundTasks
 
 class ModelTrainingBaseController:
-    def __init__(self, background_tasks_interface, config, model_training_model = None, ): 
+    def __init__(self, config, background_tasks_interface = None, model_training_model = None, ): 
         self.__config = config
-        self.__background_tasks = background_tasks_interface
+        self.__background_tasks = background_tasks_interface or NotBackgroundTasks()
         self.__model_training_model = model_training_model or ModelTrainingModel(self.__config)
         return
     
