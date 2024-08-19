@@ -127,6 +127,23 @@ class ReceivedTrainingData:
     @data.setter
     def data(self, value):
         self.__received_training_data["data"] = value
+
+
+class TrainedModelFile:
+    def __init__(self, model_file_name):
+        self.__model_file_name = model_file_name
+
+    @property
+    def file_type(self):
+        return "pt"
+    
+    @property
+    def file_name(self):
+        return self.__model_file_name.split("/")[len(self.__model_file_name.split("/")) - 1]
+    
+    @property
+    def file_path(self):
+        return self.__model_file_name
     
 
 
