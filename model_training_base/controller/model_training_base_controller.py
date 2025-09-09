@@ -39,7 +39,7 @@ class ModelTrainingBaseController:
     def _get_background_tasks(self):
         return self.__background_tasks
         
-    def __compresse_data(self, received_training_data):
+    def __compress_data(self, received_training_data):
         compressed_data = []
         for d in received_training_data.data:
             compressed_bytes = gzip.compress(d.encode())
